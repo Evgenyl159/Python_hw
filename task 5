@@ -1,0 +1,28 @@
+import random
+
+
+def get_jokes(count_joke):
+    nouns = ["бревно", "жмых", "батя", "пёс", "сосед", "шуфутинский"]
+    adverbs = ["сегодня", "вчера", "завтра", "позавчера", "ночью", "3 сентября"]
+    adjectives = ["пьяный", "загадочно", "депрессивно", "утопично", "мягко", "волшебно"]
+    act = ["бежит", "танцует", "работает", "преображается", "чувствует вину"]
+    jokes = []
+
+    while True:
+        try:
+            if count_joke < 1:
+                print('нужно выбрать значение')
+                count_joke = int(input('введите другое значение'))
+            elif count_joke > 5:
+                count_joke = int(input('Введите число меньше'))
+            else:
+                break
+        except ValueError as e:
+            print('Нужно ввести число , ', e)
+
+    for i in range(0, count_joke):
+        joke = f'{random.choice(nouns).capitalize()} {random.choice(adverbs)} {random.choice(adjectives)} {random.choice(act)}'
+        print(joke)
+
+
+get_jokes(4)

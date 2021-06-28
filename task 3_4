@@ -1,0 +1,46 @@
+def thesaurus(*names):
+    dict_names = {}
+    for name in names:
+        name = str(name).capitalize()
+        dict_names.setdefault(name[0])
+        check = name[0]
+        list_check = []
+        list_check.clear()
+        for list_name in names:
+            if str(list_name[0]).capitalize() == check:
+                if list_name not in list_check:
+                    list_check.append(list_name)
+            else:
+                continue
+        dict_names.update({f'{name[0]}': list_check})
+    return dict_names
+
+
+print(thesaurus('леха', "Иван", "Мария", "Петр", "Илья", 'валя', 'Саша', 'Иван', 'Ибрагим', 'Ваша', 'Валя'))
+
+
+def thesaurus_adv(*args):
+    dict_family = {}
+    dict_names = {}
+    list_check_names = []
+    list_check_family = []
+    for names in args:
+        test = str(names).split()
+        list_check_names.append(test[0])
+        list_check_family.append(test[1])
+        dict_family.setdefault(test[1][0], {})
+        dict_names.setdefault(test[0][0], [])
+        dict_family[test[1][0]][test[0][0]] = dict_names.setdefault(test[0][0])
+
+    for check in args:
+        test = str(check).split()
+        if test[1][0] in dict_family:
+            if test[0][0] in dict_family[test[1][0]]:
+                dict_family[test[1][0]][(test[0][0])].append(' '.join(test))
+        else:
+            continue
+# print('pizdec')
+    return dict_family
+
+
+print(thesaurus_adv("Иван Сергеев", "Инна Серова", "Петр Алексеев", "Владимир Test", "Анна Савельева", "Вячеслав Test"))
