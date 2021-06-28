@@ -1,0 +1,47 @@
+numbers = {
+    'one': 'один',
+    'two': 'два',
+    'three': 'три',
+    'four': 'четыре',
+    'five': 'пять',
+    'six': 'шесть',
+    'seven': 'семь',
+    'eight': 'восемь',
+    'nine': 'девять',
+    'ten': 'десять',
+    'zero': 'ноль'
+}
+
+
+def num_translate(numb):
+    while True:
+        if numb.isalpha():
+            break
+        else:
+            print('Повторите ввод')
+            numb = input('напишите число от 0 до 10 (пример "один\one)"')
+        continue
+    if numb[0].isupper():
+        for key, val in numbers.items():
+            if numb == key.capitalize():
+                return val.capitalize()
+            elif numb == val.capitalize():
+                return key.capitalize()
+            else:
+                continue
+    else:
+        for key, val in numbers.items():
+            if numb == key:
+                return val
+            elif numb == val:
+                return key
+            else:
+                continue
+
+
+while True:
+    number = input('напишите число от 0 до 10 (пример "один\one)"')
+    if number == 'exit':
+        break
+    print(num_translate(number))
+print('Выход с программы')
