@@ -1,0 +1,7 @@
+src = [300, 2, 12, 44, 1, 1, 4, 10, 7, 1, 78, 123, 55]
+result = [12, 44, 4, 10, 78, 123]
+
+res = [src[z + 1] for z in range(len(src) - 1) if src[z] < src[z + 1]]
+check_task = res == result
+print(res)
+print(check_task)
