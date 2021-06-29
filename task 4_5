@@ -1,0 +1,19 @@
+import sys
+import utils
+
+
+def main():
+    script_name = sys.argv[1]
+    if script_name.capitalize() == 'info'.capitalize():
+        test1 = (utils.help_menu(script_name))
+        print(test1)
+    else:
+        test2 = (utils.currency_rates(script_name))
+        print(test2)
+
+
+# main.py usd
+# main.py info
+
+if __name__ == '__main__':
+    main()
