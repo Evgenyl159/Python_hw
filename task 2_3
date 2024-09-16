@@ -1,0 +1,37 @@
+import requests
+from bs4 import BeautifulSoup
+
+
+def currency_rates(Currency):
+    check_input = str(Currency).upper()  # Проверка регистра
+    url = 'https://finance.rambler.ru/currencies/'  # Куда будем делать запрос
+    session = requests.Session()  # Создаем сессию, но в данном случае можем не создавать
+    r_get = session.get(url)  # get запрос на страницу с валютами
+    data = r_get.headers['Date']  # Получаем дату ответа на get запрос
+    full_text = r_get.text  # Сохраняем получененое в переменную
+    soupe = BeautifulSoup(full_text)  # Обрабатываем полученный тест , для дальнейшего поиска
+    # Ищем на странице с валютами класс , в котором хранятся данные
+    table = soupe.findAll('a', {'class': 'finance-currency-table__tr'})  # Сохраняем данные в переменную
+    table_copy = table.copy()  # Делаем копию
+    for item in table_copy:  # Поехали искать...
+        for sub_item in item:  # Погружаемся ниже
+            for need_item in sub_item:  # Доходим в самый низ
+                check_item = need_item.find(check_input)  # Проверяем все нужные элементы на совпадение
+                if check_item == 1:
+                    code_t = item.find('div',
+                                       {'class': 'finance-currency-table__cell finance-currency-table__cell--code'})
+                    name_t = item.find('div',
+                                       {'class': 'finance-currency-table__cell finance-currency-table__cell--currency'})
+                    value_t = item.find('div',
+                                        {'class': 'finance-currency-table__cell finance-currency-table__cell--value'})
+                    code = code_t.text
+                    name = name_t.text
+                    value = value_t.text
+                    return code, value, name, data
+
+
+try:
+    cd, vl, nm, dt = currency_rates('eUr')
+    print(f'Code: {cd}\nRate: {vl}\nName: {nm}\nDate response: {dt}')
+except TypeError as e:
+    print('Неправильный код валюты', None)
