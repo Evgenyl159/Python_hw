@@ -1,0 +1,15 @@
+def odd_nums(n):
+    for i in range(1, n + 1):
+        if i % 2 != 0:
+            yield i
+        else:
+            continue
+
+
+def print_nums(odd_nums):
+    while True:
+        print(next(odd_nums))
+
+
+odd_to_15 = odd_nums(15)
+print_nums(odd_to_15)
